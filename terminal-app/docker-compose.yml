@@ -1,0 +1,16 @@
+version: '3'
+services:
+  app:
+    image: python:3.11-alpine
+    # stdin_open: true
+    # tty: true
+    # entrypoint: /bin/sh
+    command: python3 /app/main.py
+    # bind required volumns
+    volumes:
+      - ./app:/app
+      - /mnt/d/Torrent/:/media
+
+volumes:
+  app:
+  media:
