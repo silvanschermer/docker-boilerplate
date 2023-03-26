@@ -9,7 +9,6 @@ services:
     # bind required volumns
     volumes:
       - ./app:/app
-      - /mnt/d/Torrent/:/media
 
 volumes:
   app:
