@@ -1,0 +1,33 @@
+version: '3'
+
+services:
+  app:
+    build:
+      context: ./php
+    volumes:
+      - ./html:/var/www/html:x
+      # - ./php/php.ini:/usr/local/etc/php/php.ini
+      - ./php/php-fpm.conf:/usr/local/etc/php/zzz-docker.conf
+    ports:
+       - "9000:9000"
+    networks:
+      - web
+
+  web:
+    build: 
+      context: ./server
+    volumes:
+      - ./server/nginx.conf:/etc/nginx/nginx.conf:ro
+      - ./server/site.conf:/etc/nginx/sites-enabled/site.conf:ro
+      - ./server/error.log:/var/log/nginx/error.log:r
+      - ./html:/var/www/html:ro
+    ports:
+       - "80:80"
+    networks:
+      - web
+    links:
+      - app
+    depends_on:
+      - app
+networks:
+  web:
