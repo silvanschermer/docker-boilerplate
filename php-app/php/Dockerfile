@@ -39,9 +39,6 @@ RUN docker-php-ext-install opcache \
     && docker-php-ext-install gd \
     && docker-php-ext-install sockets
 
-# enable opcache
-RUN docker-php-ext-enable opcache
-
 # switch back to the root document directory
 WORKDIR /var/www/html
 
@@ -54,7 +51,7 @@ RUN touch /usr/local/var/log/php-fpm.log \
     && chown root:1000 /usr/local/var/log/php-fpm.log \
     && chmod 060 /usr/local/var/log/php-fpm.log
 
-# set user expose port and start.
+# set user:group, expose port and start.
 USER 1000:1000
 EXPOSE 9000
 CMD ["php-fpm"]

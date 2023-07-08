@@ -6,8 +6,8 @@ services:
       context: ./php
     volumes:
       - ./html:/var/www/html:x
-      # - ./php/php.ini:/usr/local/etc/php/php.ini
-      - ./php/php-fpm.conf:/usr/local/etc/php/zzz-docker.conf
+      - ./php/php.ini:/usr/local/etc/php/php.ini
+      - ./php/php-fpm.conf:/usr/local/etc/php-fpm.d/zzz-docker.conf
     ports:
        - "9000:9000"
     networks:
@@ -23,10 +23,18 @@ services:
     ports:
        - "80:80"
     networks:
-      - web
+      web:
+        ipv4_address: 172.19.0.3
     links:
       - app
     depends_on:
       - app
+
 networks:
   web:
+    driver: bridge
+    ipam:
+      driver: default
+      config:
+        - subnet: 172.19.0.0/16
+          gateway: 172.19.0.1
