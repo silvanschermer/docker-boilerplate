@@ -1,7 +1,5 @@
 FROM php:8.2-fpm-alpine
 
-WORKDIR /var/www/html
-
 # remove default config files.
 RUN find /usr/local/etc/php-fpm.d -maxdepth 1 -mindepth 1 -type f -exec rm -r '{}' \;
 # create our own config file.
@@ -60,6 +58,3 @@ RUN touch /usr/local/var/log/php-fpm.log \
 USER 1000:1000
 EXPOSE 9000
 CMD ["php-fpm"]
-
-
-# TODO: clean installation
